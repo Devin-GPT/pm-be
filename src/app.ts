@@ -2,6 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import userRoutes from './routes/userRoutes';
 import sequelize from './config/database';
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables from .env file, if present
 
 const app = express();
 

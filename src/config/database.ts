@@ -1,7 +1,4 @@
 import { Sequelize } from 'sequelize';
-import dotenv from 'dotenv';
-
-dotenv.config(); // Load environment variables from .env file, if present
 
 const databaseUrl = process.env.DATABASE_URL;
 
