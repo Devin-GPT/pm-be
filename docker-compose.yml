@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/project_db
+      - AUTH0_DOMAIN=your-auth0-domain
+      - AUTH0_CLIENT_ID=your-auth0-client-id
+      - AUTH0_CLIENT_SECRET=your-auth0-client-secret
+    ports:
+      - "9229:9229" # Debugger port
+      - '3000:3000' # Dev port
+    depends_on:
+      - db
+    command: ["tail", "-f", "/dev/null"]
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: project_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
